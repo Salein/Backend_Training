@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/nodemon', (req, res) => {
-  res.send('nodemon working')
+  res.send('nodemon working...')
 })
 
 

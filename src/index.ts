@@ -5,7 +5,7 @@ const port = 3000
 
 app.use(express.json())
 
-const users = [{
+let users = [{
   id: 1,
   name: 'John Doe',
   age: 30
@@ -69,7 +69,13 @@ app.post('/users', (req, res) => {
     // с клиента нужно отправлять запрос с хедером(в хедере указать 'content-type': 'application/json') чтобы body не было undefined
   //с сереализацией, прим: body: JSON.stringify()
   users.push(newUser)
-  res.json(newUser)
+  res.status(201).json(newUser)
+})
+
+app.delete('/users/:id', (req, res) => {
+  users = users.filter(user => user.id !== parseInt(req.params.id))
+  //204 - no content
+  res.sendStatus(204)
 })
 
 app.listen(port, () => {

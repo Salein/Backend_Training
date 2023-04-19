@@ -78,6 +78,26 @@ app.delete('/users/:id', (req, res) => {
   res.sendStatus(204)
 })
 
+//обновление данных методом PUT
+app.put('/users/:id', (req, res) => {
+  const foundUser = users.find(user => user.id === parseInt(req.params.id))
+//если клиент не передал данные о пользователе, вернем статус 400
+  if (!req.body.name || !req.body.age) {
+    res.sendStatus(400)
+    return
+  }
+
+  if (!foundUser) {
+    res.sendStatus(404)
+    return
+  }
+
+  foundUser.name = req.body.name
+  foundUser.age = req.body.age
+
+  res.json(foundUser)
+})
+
 app.listen(port, () => {
   console.log(`Your application started on http://localhost:${port}`)
 })
